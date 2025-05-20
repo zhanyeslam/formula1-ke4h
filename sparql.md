@@ -86,7 +86,7 @@ ORDER BY ?driverLabel
 
 This query examines whether drivers have a recorded partner using `P451` (unmarried partner).  
 It uses `OPTIONAL` to ensure drivers without a recorded relationship are still included in the results.  
-Only Max Verstappen is currently linked to a partner (Kelly Piquet), while others like Charles Leclerc have no partner listed — despite known relationships.
+Only Max Verstappen and Lewis Hamilton are linked to partners (Kelly Piquet, Nicole Scherzinger), while others like Charles Leclerc have no partner listed — despite known relationships.
 
 ```sparql
 SELECT ?driver ?driverLabel ?partner ?partnerLabel
