@@ -5,11 +5,11 @@ title: Methodology
 
 # Methodology
 
-This project uses a data-driven approach to explore and improve the quality of Formula 1 driver data in Wikidata.  
-Rather than assuming missing knowledge in advance, we use SPARQL queries to retrieve real data for selected drivers.  
+This project uses a data-driven approach to explore and improve the quality of Formula 1 driver data in Wikidata. 
+We use SPARQL queries to retrieve real data for selected drivers.  
 By inspecting the output, we observe when specific values such as team membership, relationship data, or recent titles are not present.
 
-When a relevant fact is missing or outdated in Wikidata, we consider it a candidate for enrichment.  
+When a relevant fact is missing in Wikidata, we consider it a candidate for enrichment.  
 To fill the gap, we use large language models (LLMs) such as GPT-4 and Gemini to retrieve the most accurate, contextual information.  
 We then convert that information into structured RDF triples using the Wikidata ontology format.
 
