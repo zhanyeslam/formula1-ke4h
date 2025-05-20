@@ -1,5 +1,5 @@
 # 🏎️ Lewis Hamilton (Q9673)
-
+theme: jekyll-theme-minimal
 ![Lewis Hamilton](assets/images/hamilton.jpg)
 
 ## 👤 Who is Lewis Hamilton?
