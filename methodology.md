@@ -1,36 +1,93 @@
----
-layout: page
-title: Methodology
----
+# 🧪 Methodology
 
-# Methodology
-
-This project uses a data-driven approach to explore and improve the quality of Formula 1 driver data in Wikidata. 
-We use SPARQL queries to retrieve real data for selected drivers.  
-By inspecting the output, we observe when specific values such as team membership, relationship data, or recent titles are not present.
-
-When a relevant fact is missing in Wikidata, we consider it a candidate for enrichment.  
-To fill the gap, we use large language models (LLMs) such as GPT-4 and Gemini to retrieve the most accurate, contextual information.  
-We then convert that information into structured RDF triples using the Wikidata ontology format.
+Our project combines **Knowledge Graph querying** with **Large Language Models (LLMs)** to detect and fill **missing facts** about selected Formula 1 drivers in **Wikidata**.
 
 ---
 
-## How SPARQL Was Used
+## 🎯 Objective
 
-We used SPARQL not only as a technical requirement, but as an exploratory tool to verify what is present in Wikidata and what is not.
-
-Each query in the project serves a real purpose:
-
-- **Driver Lookup by Name**: Confirmed existence of target drivers using `FILTER`, `REGEX`, and `LIMIT`.
-- **Nationality or Team**: Used `UNION` to extract basic properties for comparison.
-- **Championship Wins**: Retrieved historical wins (`P2522`) and showed missing 2024 win.
-- **Unmarried Partner**: Used `OPTIONAL` to verify whether drivers have known partners listed.
-
-All six required SPARQL keywords (`FILTER`, `REGEX`, `UNION`, `OPTIONAL`, `DISTINCT`, `LIMIT`) were applied in meaningful, task-driven queries.
+To enrich existing semantic data by:
+- Identifying **gaps** in the RDF descriptions of drivers.
+- Prompting LLMs to retrieve and reformat **missing knowledge**.
+- Manually verifying and correcting outputs.
+- Publishing all methods and findings in a clear, reproducible way.
 
 ---
 
-## Summary
+## 👥 Subjects of Analysis
 
-This methodology allowed us to find meaningful gaps directly from the data itself — not through assumptions — and address them through targeted AI-generated enrichment.  
-Every enrichment step is documented with the original SPARQL, the LLM prompt and response, and the resulting RDF triple.
+We focused on 4 prominent Formula 1 drivers:
+
+- **Lewis Hamilton** (Q9673)
+- **Charles Leclerc** (Q17541912)
+- **Kimi Antonelli** (Q112073790)
+- **Max Verstappen** (Q2239218)
+
+---
+
+## 🔍 Step 1: SPARQL Queries to Explore the KG
+
+We crafted SPARQL queries using multiple keywords:
+
+- `VALUES`, `ORDER BY`, `FILTER`, `OPTIONAL`, `UNION`, `DISTINCT`, `REGEX`, `LIMIT`, `SERVICE`
+- These queries helped **extract existing data** and **highlight what’s missing**
+
+Example:
+```sparql
+SELECT ?driver ?driverLabel ?partner ?partnerLabel
+WHERE {
+  VALUES ?driver {
+    wd:Q9673 wd:Q17541912 wd:Q112073790 wd:Q2239218
+  }
+  OPTIONAL { ?driver wdt:P451 ?partner . }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY ?driverLabel
+```
+
+This revealed that Charles Leclerc's relationship was missing, while Verstappen and Hamilton had partners listed.
+
+---
+
+## 🤖 Step 2: Prompting LLMs to Fill Gaps
+
+We used **three prompting techniques** across different cases:
+
+| Prompting Style | Example Used |
+|------------------|--------------|
+| **Zero-shot** | For identifying drivers' teams |
+| **Few-shot** | For relationship info (Leclerc) |
+| **Chain-of-Thought** | For championship winner analysis (Verstappen) |
+
+Each LLM (ChatGPT, Gemini) received prompts in different formats and produced varied outputs — some correct, some flawed.
+
+---
+
+## 🧱 Step 3: RDF Generation and Manual Correction
+
+LLMs were asked to return **RDF triples using Wikidata ontology**. Their outputs were then:
+
+1. **Evaluated**
+2. **Compared** between models
+3. **Corrected manually** (invalid Q-IDs, missing qualifiers)
+
+Final RDF was written in **Turtle format** using proper prefixes, properties, and qualifiers.
+
+---
+
+## ✅ Summary of Tools Used
+
+| Tool | Purpose |
+|------|---------|
+| **Wikidata** | Main knowledge graph |
+| **SPARQL** | Querying and gap discovery |
+| **ChatGPT / Gemini** | Knowledge generation |
+| **Manual editing** | RDF validation and correction |
+| **Markdown + GitHub Pages** | Publication and reporting
+
+---
+
+## 📎 Outcome
+
+We successfully enriched Wikidata-relevant facts for all 4 drivers, meeting all project requirements.  
+Each case study followed a clear path: **SPARQL → Gap → LLMs → RDF → Validation** — providing both **automation** and **precision** in knowledge enrichment.
