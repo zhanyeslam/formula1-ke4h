@@ -4,7 +4,7 @@
 
 ## 👤 Who is Kimi Antonelli?
 
-**Andrea Kimi Antonelli** is a young and highly promising Italian Formula driver, often referred to as the "next Hamilton" by the press. He is part of the **Mercedes Junior Team** and is expected to debut in Formula 1 very soon.
+**Andrea Kimi Antonelli** is a young and highly promising Italian Formula driver, often referred to as the "next Hamilton" by the press. He is part of the **Mercedes F1 Team**.
 
 We chose him for our analysis because of his recent rise and increasing media attention. Despite his prominence, **Wikidata lacked up-to-date information** on his current team affiliation with **Mercedes**.
 
@@ -34,7 +34,7 @@ WHERE {
 ORDER BY ?driverLabel
 ```
 
-📎 **Result**: No entry for Kimi Antonelli’s affiliation with Mercedes.
+📎 **Result**: https://w.wiki/EEnK.
 
 ---
 
@@ -81,20 +81,6 @@ LLMs returned RDF with incorrect structure or Q-IDs:
 ## ✅ Corrected RDF (Manually Refined)
 
 We manually corrected the RDF using verified Q-IDs:
-
-```turtle
-@prefix wd: <http://www.wikidata.org/entity/> .
-@prefix p: <http://www.wikidata.org/prop/> .
-@prefix ps: <http://www.wikidata.org/prop/statement/> .
-@prefix pq: <http://www.wikidata.org/prop/qualifier/> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-
-wd:Q112073790 p:P54 [
-  ps:P54 wd:Q172721 ;
-  pq:P580 "2025-01-01T00:00:00Z"^^xsd:dateTime ;
-  pq:P641 wd:Q1142852
-] .
-```
 
 ![Final Correct RDF](assets/images/rdf_final_correct2.png)
 
